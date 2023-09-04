@@ -60,17 +60,17 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"]:checked {
-	background-color: var(--pry-col, #3f5bf6);
+	background-color: #ffffff;
 	border-color: var(--pry-col, #3f5bf6);
 }
 input[type="checkbox"]:checked:after {
 	content: "";
 	position: absolute;
 	left: 0.4rem;
-	top: 0.25rem;
-	width: 0.25rem;
-	height: 0.5rem;
-	border: solid #fff;
+	top: 0.15rem;
+	width: 0.35rem;
+	height: 0.65rem;
+	border: solid #3f5bf6;
 	border-width: 0 2px 2px 0;
 	transform: rotate(45deg);
 }
