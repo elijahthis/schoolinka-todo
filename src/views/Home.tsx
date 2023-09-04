@@ -1,4 +1,5 @@
 import Button from "../components/Button";
+import PaginationComponent from "../components/PaginationComponent";
 import ScrollableCalendar from "../components/ScrollableCalendar";
 import TaskItem from "../components/TaskItem";
 import { AddIcon } from "../components/svgs";
@@ -36,7 +37,9 @@ const Home = () => {
 						))}
 					</div>
 
-					<div></div>
+					<div className="mb-24">
+						<PaginationComponent handlePageClick={() => {}} pageCount={10} />
+					</div>
 				</div>
 			</div>
 		</div>

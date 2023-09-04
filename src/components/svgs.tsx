@@ -6,7 +6,7 @@ export const SettingsIcon = () => (
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
 	>
-		<g clip-path="url(#clip0_3440_485)">
+		<g clipPath="url(#clip0_3440_485)">
 			<path
 				d="M10.0001 12.5C11.3808 12.5 12.5001 11.3807 12.5001 9.99999C12.5001 8.61928 11.3808 7.49999 10.0001 7.49999C8.61937 7.49999 7.50008 8.61928 7.50008 9.99999C7.50008 11.3807 8.61937 12.5 10.0001 12.5Z"
 				stroke="#667085"
@@ -59,6 +59,42 @@ export const AddIcon = () => (
 		<path
 			d="M10.0001 4.16666V15.8333M4.16675 9.99999H15.8334"
 			stroke="white"
+			strokeWidth="1.66667"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+	</svg>
+);
+
+export const ArrowLeftIcon = () => (
+	<svg
+		width="20"
+		height="20"
+		viewBox="0 0 20 20"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M15.8334 9.99996H4.16675M4.16675 9.99996L10.0001 15.8333M4.16675 9.99996L10.0001 4.16663"
+			stroke="#475467"
+			strokeWidth="1.66667"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+	</svg>
+);
+
+export const ArrowRightIcon = () => (
+	<svg
+		width="20"
+		height="20"
+		viewBox="0 0 20 20"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M4.16675 9.99996H15.8334M15.8334 9.99996L10.0001 4.16663M15.8334 9.99996L10.0001 15.8333"
+			stroke="#475467"
 			strokeWidth="1.66667"
 			strokeLinecap="round"
 			strokeLinejoin="round"

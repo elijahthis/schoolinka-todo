@@ -81,3 +81,34 @@ input[type="checkbox"]:disabled {
 	cursor: not-allowed;
 	opacity: 0.5;
 }
+
+.PaginationComponent {
+	display: flex;
+	flex: row;
+	align-items: center;
+	gap: 2px;
+}
+.PaginationComponent .previous {
+	margin-right: auto;
+	color: #475467;
+}
+.PaginationComponent .next {
+	margin-left: auto;
+	color: #475467;
+}
+.PaginationComponent__page,
+.PaginationComponent__break {
+	min-width: 40px;
+	width: 40px;
+	height: 40px;
+
+	display: grid;
+	place-items: center;
+	color: #475467;
+	font-weight: 500;
+}
+.PaginationComponent__active {
+	background: #f9fafb;
+	border-radius: 50%;
+	color: #1d2939;
+}
