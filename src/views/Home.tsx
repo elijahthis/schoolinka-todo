@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../components/Button";
 import Modal from "../components/Modal";
 import PaginationComponent from "../components/PaginationComponent";
@@ -6,13 +6,16 @@ import ScrollableCalendar from "../components/ScrollableCalendar";
 import TaskItem from "../components/TaskItem";
 import { AddTaskModal } from "../components/modals";
 import { AddIcon } from "../components/svgs";
-import { taskList } from "../utils/constants";
 import { Task } from "../utils/types";
+import { taskContext } from "../contexts/taskContext";
 
 const Home = () => {
 	const [openAddTaskModal, setOpenAddTaskModal] = useState(false);
 	const [editTask, setEditTask] = useState(false);
 	const [selectedTask, setSelectedTask] = useState<Task | undefined>(undefined);
+
+	const { taskList, setTaskList, addTask, deleteTask, updateTask } =
+		useContext(taskContext);
 
 	return (
 		<>
@@ -20,7 +23,7 @@ const Home = () => {
 				<div className="flex flex-row items-start gap-4 justify-between pt-12 mb-8 ">
 					<div className="flex flex-col items-start gap-1 ">
 						<h1>Good morning!</h1>
-						<p>You got some task to do.</p>
+						<p>You've got some tasks to do.</p>
 					</div>
 					<Button
 						onClick={() => {
@@ -45,14 +48,20 @@ const Home = () => {
 							<div className="flex flex-col items-stretch gap-4 mb-8 ">
 								{taskList.map((taskItem, ind) => (
 									<TaskItem
-										title={taskItem.title}
-										startTime={taskItem.startTime}
-										endTime={taskItem.endTime}
+										taskData={taskItem}
 										key={ind}
 										onClick={() => {
 											setEditTask(true);
 											setSelectedTask(taskItem);
 											setOpenAddTaskModal(true);
+										}}
+										onSelect={(val: boolean) => {
+											// if (val) {
+											updateTask(taskItem.id, {
+												...taskItem,
+												completed: val,
+											});
+											// }
 										}}
 									/>
 								))}

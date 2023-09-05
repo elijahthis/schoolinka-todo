@@ -69,7 +69,7 @@ export const AddTaskModal = ({
 			</div>
 			<div className="flex flex-row items-center gap-2 ">
 				<DarkBellIcon />
-				<p className="mr-auto text-[#667085] ">10 Minute before</p>
+				<p className="mr-auto text-[#667085] ">10 Minutes before</p>
 				<CloseIcon className="w-4 h-4 cursor-pointer" />
 			</div>
 			<div className="pt-8 grid grid-cols-2 gap-3">
