@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+	@variants responsive {
+		/* Hide scrollbar for Chrome, Safari and Opera */
+		.no-scrollbar::-webkit-scrollbar {
+			display: none;
+		}
+
+		/* Hide scrollbar for IE, Edge and Firefox */
+		.no-scrollbar {
+			-ms-overflow-style: none; /* IE and Edge */
+			scrollbar-width: none; /* Firefox */
+		}
+	}
+}
+
 .root,
 #root,
 #docs-root {
@@ -47,7 +62,7 @@ input[type="checkbox"] {
 
 	appearance: none;
 	border: 1px solid #e7ecf3;
-	border-radius: 7px;
+	border-radius: 6px;
 	width: 20px;
 	height: 20px;
 	transition: background-color 0.2s ease-in-out;

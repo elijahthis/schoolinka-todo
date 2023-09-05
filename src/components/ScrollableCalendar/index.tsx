@@ -4,7 +4,7 @@ const ScrollableCalendar = () => {
 	return (
 		<div>
 			<h2 className="mb-4">January 2023</h2>
-			<div className="flex flex-row items-stretch gap-4 w-full overflow-x-auto ">
+			<div className="flex flex-row items-stretch gap-4 w-full overflow-x-auto no-scrollbar ">
 				{Array(31)
 					.fill(0)
 					.map((item, ind) => (

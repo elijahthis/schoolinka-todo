@@ -5,7 +5,7 @@ import avatar from "../../images/avatar.png";
 
 const Header = () => {
 	return (
-		<header className="flex flex-row itmes-center gap-4 justify-between py-4 px-[82px] border-b border-[#EAECF0] fixed top-0 left-0 w-full bg-white ">
+		<header className="flex flex-row itmes-center gap-4 justify-between py-4 px-[82px] border-b border-[#EAECF0] fixed top-0 left-0 w-full bg-white z-30 ">
 			<Link to="/">
 				<img src={logo} alt="logo" />
 			</Link>
