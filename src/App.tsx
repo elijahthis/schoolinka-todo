@@ -1,27 +1,13 @@
-import React, { useState } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
 import MainLayout from "./layouts/MainLayout";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
 import { taskContext } from "./contexts/taskContext";
-import { Task } from "./utils/types";
-import { taskList as taskArr } from "./utils/constants";
+import useTasks from "./hooks/useTasks";
 
 function App() {
-	const [taskList, setTaskList] = useState<Task[]>(taskArr);
-
-	const addTask = (task: Task) => {
-		setTaskList([...taskList, task]);
-	};
-
-	const deleteTask = (id: number) => {
-		setTaskList(taskList.filter((task) => task.id !== id));
-	};
-
-	const updateTask = (id: number, updatedTask: Task) => {
-		setTaskList(taskList.map((task) => (task.id === id ? updatedTask : task)));
-	};
+	const { taskList, setTaskList, addTask, deleteTask, updateTask } = useTasks();
 
 	return (
 		<div className="App">

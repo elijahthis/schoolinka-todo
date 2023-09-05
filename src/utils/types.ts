@@ -6,3 +6,10 @@ export interface Task {
 	endTime?: string;
 	completed: boolean;
 }
+
+export interface TaskResponse {
+	id: number;
+	userId: number;
+	title: string;
+	completed: boolean;
+}

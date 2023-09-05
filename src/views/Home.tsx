@@ -8,6 +8,7 @@ import { AddTaskModal } from "../components/modals";
 import { AddIcon } from "../components/svgs";
 import { Task } from "../utils/types";
 import { taskContext } from "../contexts/taskContext";
+import usePaginate from "../hooks/usePaginate";
 
 const Home = () => {
 	const [openAddTaskModal, setOpenAddTaskModal] = useState(false);
@@ -16,6 +17,12 @@ const Home = () => {
 
 	const { taskList, setTaskList, addTask, deleteTask, updateTask } =
 		useContext(taskContext);
+
+	const itemsPerPage = 7;
+	const { currentItems, pageCount, handlePageClick } = usePaginate(
+		itemsPerPage,
+		taskList
+	);
 
 	return (
 		<>
@@ -46,7 +53,7 @@ const Home = () => {
 						<div>
 							<h2 className="mb-4">My Tasks</h2>
 							<div className="flex flex-col items-stretch gap-4 mb-8 ">
-								{taskList.map((taskItem, ind) => (
+								{currentItems.map((taskItem, ind) => (
 									<TaskItem
 										taskData={taskItem}
 										key={ind}
@@ -69,8 +76,8 @@ const Home = () => {
 
 							<div className="mb-24 pt-5 border-t border-[#EAECF0] ">
 								<PaginationComponent
-									handlePageClick={() => {}}
-									pageCount={10}
+									handlePageClick={handlePageClick}
+									pageCount={pageCount}
 								/>
 							</div>
 						</div>
