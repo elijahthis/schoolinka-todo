@@ -21,6 +21,10 @@ export const AddTaskModal = ({
 			setTaskTitle(taskData.title);
 			setTaskStartTime(taskData.startTime);
 			setTaskEndTime(taskData.endTime || "");
+		} else {
+			setTaskTitle("");
+			setTaskStartTime("");
+			setTaskEndTime("");
 		}
 	}, [taskData]);
 
@@ -69,19 +73,27 @@ export const AddTaskModal = ({
 				<CloseIcon className="w-4 h-4 cursor-pointer" />
 			</div>
 			<div className="pt-8 grid grid-cols-2 gap-3">
-				<ModalButton variant="outline">Cancel</ModalButton>
+				<ModalButton variant="outline" onClick={onClose}>
+					Cancel
+				</ModalButton>
 				<ModalButton>Add</ModalButton>
 			</div>
 		</div>
 	);
 };
 
+export const ViewTaskModal = () => {
+	return <div></div>;
+};
+
 const ModalButton = ({
 	children,
 	variant = "fill",
+	onClick,
 }: {
 	children: string;
 	variant?: "fill" | "outline";
+	onClick?: () => void;
 }) => (
 	<button
 		className={`cursor-pointer w-full py-[10px] px-[18px] rounded-lg font-semibold border ${
@@ -95,6 +107,7 @@ const ModalButton = ({
 					? "0px 1px 2px 0px rgba(16, 24, 40, 0.05)"
 					: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
 		}}
+		onClick={onClick}
 	>
 		{children}
 	</button>

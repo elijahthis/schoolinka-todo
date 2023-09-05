@@ -24,6 +24,8 @@ const Home = () => {
 					</div>
 					<Button
 						onClick={() => {
+							setEditTask(false);
+							setSelectedTask(undefined);
 							setOpenAddTaskModal(true);
 						}}
 					>
@@ -33,41 +35,51 @@ const Home = () => {
 						</div>
 					</Button>
 				</div>
-				<div className="w-[862px] pr-5 border-r border-[#EAECF0]">
-					<div className="mb-8">
-						<ScrollableCalendar />
-					</div>
-					<div>
-						<h2 className="mb-4">My Tasks</h2>
-						<div className="flex flex-col items-stretch gap-4 mb-8 ">
-							{taskList.map((taskItem, ind) => (
-								<TaskItem
-									title={taskItem.title}
-									startTime={taskItem.startTime}
-									endTime={taskItem.endTime}
-									key={ind}
-									onClick={() => {
-										setEditTask(true);
-										setSelectedTask(taskItem);
-										setOpenAddTaskModal(true);
-									}}
-								/>
-							))}
+				<div className="layoutBody">
+					<div className="pr-5 border-r border-[#EAECF0]">
+						<div className="mb-8">
+							<ScrollableCalendar />
 						</div>
+						<div>
+							<h2 className="mb-4">My Tasks</h2>
+							<div className="flex flex-col items-stretch gap-4 mb-8 ">
+								{taskList.map((taskItem, ind) => (
+									<TaskItem
+										title={taskItem.title}
+										startTime={taskItem.startTime}
+										endTime={taskItem.endTime}
+										key={ind}
+										onClick={() => {
+											setEditTask(true);
+											setSelectedTask(taskItem);
+											setOpenAddTaskModal(true);
+										}}
+									/>
+								))}
+							</div>
 
-						<div className="mb-24 pt-5 border-t border-[#EAECF0] ">
-							<PaginationComponent handlePageClick={() => {}} pageCount={10} />
+							<div className="mb-24 pt-5 border-t border-[#EAECF0] ">
+								<PaginationComponent
+									handlePageClick={() => {}}
+									pageCount={10}
+								/>
+							</div>
 						</div>
+					</div>
+					<div className="relative">
+						<Modal
+							open={openAddTaskModal}
+							onClose={() => setOpenAddTaskModal(false)}
+						>
+							<AddTaskModal
+								onClose={() => setOpenAddTaskModal(false)}
+								edit={editTask}
+								taskData={selectedTask}
+							/>
+						</Modal>
 					</div>
 				</div>
 			</div>
-			<Modal open={openAddTaskModal} onClose={() => setOpenAddTaskModal(false)}>
-				<AddTaskModal
-					onClose={() => setOpenAddTaskModal(false)}
-					edit={editTask}
-					taskData={selectedTask}
-				/>
-			</Modal>
 		</>
 	);
 };
