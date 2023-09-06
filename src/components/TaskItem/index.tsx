@@ -45,10 +45,7 @@ const TaskItem = ({ taskData, onClick, onSelect }: TaskItemProps) => {
 					taskData.endTime ? ` - ${formatTime(new Date(taskData.endTime))}` : ""
 				}`}</p>
 			</div>
-			<p className="ml-auto TaskItem__right">
-				<span>Today</span>
-				<DeleteIcon />
-			</p>
+			<p className="ml-auto TaskItem__right">Today</p>
 		</div>
 	);
 };

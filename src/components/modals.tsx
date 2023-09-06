@@ -4,7 +4,11 @@ import { CalenderIcon, ClockIcon, CloseIcon, DarkBellIcon } from "./svgs";
 import useTasks from "../hooks/useTasks";
 import { taskContext } from "../contexts/taskContext";
 import CompletedBadge from "./CompletedBadge";
-import { ellipsisTruncator } from "../utils/helpers";
+import {
+	ellipsisTruncator,
+	formatDateWithSuffix,
+	formatTime,
+} from "../utils/helpers";
 
 // ----------------------------------------- AddTaskModal -----------------------------------------
 interface AddTaskModalProps {
@@ -135,11 +139,20 @@ export const ViewTaskModal = ({
 			<div className="mb-[34px] flex flex-col items-start gap-2">
 				<div className="flex flex-row items-center gap-2">
 					<CalenderIcon className="text-pry-col" />
-					<p className="font-medium text-[#272727]">20th January, 2023</p>
+					<p className="font-medium text-[#272727]">
+						{/* write as 20th January, 2023 */}
+						{formatDateWithSuffix(new Date(taskData?.startTime ?? ""))}
+					</p>
 				</div>
 				<div className="flex flex-row items-center gap-2">
 					<ClockIcon className="text-pry-col" />
-					<p className="font-medium text-[#272727]">8:00 - 10:00 AM</p>
+					<p className="font-medium text-[#272727]">{`${formatTime(
+						new Date(taskData?.startTime ?? "")
+					)}${
+						taskData?.endTime
+							? ` - ${formatTime(new Date(taskData.endTime))}`
+							: ""
+					}`}</p>
 				</div>
 			</div>
 			<div className="grid grid-cols-2 gap-3">
@@ -167,13 +180,14 @@ export const DeleteTaskModal = ({
 }: DeleteTaskModalProps) => {
 	return (
 		<div className="p-6">
-			<div className="mb-4 flex flex-row items-center justify-end">
+			<div className="mb-2 flex flex-row items-center justify-end">
 				{taskData?.completed && <CompletedBadge />}
 				<CloseIcon className="cursor-pointer ml-auto" />
 			</div>
-			<h4 className="mb-6">
+			<h4 className="mb-3">Delete Task</h4>
+			<p className="mb-6">
 				Are you sure you want to delete "{taskData?.title}"
-			</h4>
+			</p>
 			<div className="grid grid-cols-2 gap-3">
 				<ModalButton variant="outline" onClick={() => cancelFunc()}>
 					Cancel
