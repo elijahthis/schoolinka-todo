@@ -122,17 +122,18 @@ export const CloseIcon = ({ className = "", onClick = () => {} }) => (
 	</svg>
 );
 
-export const CalenderIcon = () => (
+export const CalenderIcon = ({ className = "" }) => (
 	<svg
 		width="20"
 		height="20"
 		viewBox="0 0 20 20"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
+		className={className}
 	>
 		<path
 			d="M17.5 8.33334H2.5M13.3333 1.66667V5.00001M6.66667 1.66667V5.00001M6.5 18.3333H13.5C14.9001 18.3333 15.6002 18.3333 16.135 18.0609C16.6054 17.8212 16.9878 17.4387 17.2275 16.9683C17.5 16.4335 17.5 15.7335 17.5 14.3333V7.33334C17.5 5.93321 17.5 5.23314 17.2275 4.69836C16.9878 4.22796 16.6054 3.84551 16.135 3.60582C15.6002 3.33334 14.9001 3.33334 13.5 3.33334H6.5C5.09987 3.33334 4.3998 3.33334 3.86502 3.60582C3.39462 3.84551 3.01217 4.22796 2.77248 4.69836C2.5 5.23314 2.5 5.93321 2.5 7.33334V14.3333C2.5 15.7335 2.5 16.4335 2.77248 16.9683C3.01217 17.4387 3.39462 17.8212 3.86502 18.0609C4.3998 18.3333 5.09987 18.3333 6.5 18.3333Z"
-			stroke="#344054"
+			stroke="currentColor"
 			stroke-width="1.66667"
 			stroke-linecap="round"
 			stroke-linejoin="round"
@@ -140,18 +141,19 @@ export const CalenderIcon = () => (
 	</svg>
 );
 
-export const ClockIcon = () => (
+export const ClockIcon = ({ className = "" }) => (
 	<svg
 		width="20"
 		height="20"
 		viewBox="0 0 20 20"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
+		className={className}
 	>
 		<g clip-path="url(#clip0_17_12192)">
 			<path
 				d="M9.99984 5.00001V10L13.3332 11.6667M18.3332 10C18.3332 14.6024 14.6022 18.3333 9.99984 18.3333C5.39746 18.3333 1.6665 14.6024 1.6665 10C1.6665 5.39763 5.39746 1.66667 9.99984 1.66667C14.6022 1.66667 18.3332 5.39763 18.3332 10Z"
-				stroke="#344054"
+				stroke="currentColor"
 				stroke-width="2"
 				stroke-linecap="round"
 				stroke-linejoin="round"
@@ -183,5 +185,20 @@ export const DarkBellIcon = () => (
 			stroke-linecap="round"
 			stroke-linejoin="round"
 		/>
+	</svg>
+);
+
+export const DeleteIcon = () => (
+	<svg
+		stroke="rgb(239 68 68)"
+		fill="rgb(239 68 68)"
+		stroke-width="0"
+		viewBox="0 0 24 24"
+		height="1.5em"
+		width="1.5em"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path fill="none" d="M0 0h24v24H0V0z"></path>
+		<path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5l-1-1h-5l-1 1H5v2h14V4z"></path>
 	</svg>
 );

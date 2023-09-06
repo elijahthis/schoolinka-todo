@@ -20,7 +20,7 @@ const useTasks = () => {
 	}, [taskArr]);
 
 	const addTask = (task: Task) => {
-		setTaskList([...taskList, task]);
+		setTaskList([task, ...taskList]);
 	};
 
 	const deleteTask = (id: number) => {

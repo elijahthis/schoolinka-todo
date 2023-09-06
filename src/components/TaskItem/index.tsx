@@ -1,5 +1,6 @@
-import { ellipsisTruncator } from "../../utils/helpers";
+import { ellipsisTruncator, formatTime } from "../../utils/helpers";
 import { Task } from "../../utils/types";
+import { DeleteIcon } from "../svgs";
 
 interface TaskItemProps {
 	taskData: Task;
@@ -10,7 +11,7 @@ interface TaskItemProps {
 const TaskItem = ({ taskData, onClick, onSelect }: TaskItemProps) => {
 	return (
 		<div
-			className="flex flex-row items-center gap-3 text-sm bg-[#F9FAFB] border-b border-[#EAECF0] py-4 px-6 text-sm text-[#475467] cursor-pointer "
+			className="TaskItem flex flex-row items-center gap-3 text-sm bg-[#F9FAFB] border-b border-[#EAECF0] py-4 px-6 text-sm text-[#475467] cursor-pointer "
 			onClick={onClick}
 		>
 			<span onClick={(e) => e.stopPropagation()}>
@@ -40,11 +41,14 @@ const TaskItem = ({ taskData, onClick, onSelect }: TaskItemProps) => {
 							? "text-[#D0D5DD] line-through"
 							: "text-[#475467]"
 					} transition-all duration-300 `}
-				>{`${taskData.startTime}${
-					taskData.endTime ? ` - ${taskData.endTime}` : ""
+				>{`${formatTime(new Date(taskData.startTime))}${
+					taskData.endTime ? ` - ${formatTime(new Date(taskData.endTime))}` : ""
 				}`}</p>
 			</div>
-			<p className="ml-auto">Today</p>
+			<p className="ml-auto TaskItem__right">
+				<span>Today</span>
+				<DeleteIcon />
+			</p>
 		</div>
 	);
 };

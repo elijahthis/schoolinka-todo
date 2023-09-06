@@ -8,3 +8,14 @@
 	grid-template-columns: minmax(0, 1fr) 395px;
 	gap: 1.5rem;
 }
+
+.TaskItem .TaskItem__right > svg {
+	display: none;
+}
+
+.TaskItem:hover .TaskItem__right > svg {
+	display: inline-block;
+}
+.TaskItem:hover .TaskItem__right > span {
+	display: none;
+}

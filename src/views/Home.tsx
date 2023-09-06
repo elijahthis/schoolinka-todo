@@ -4,16 +4,23 @@ import Modal from "../components/Modal";
 import PaginationComponent from "../components/PaginationComponent";
 import ScrollableCalendar from "../components/ScrollableCalendar";
 import TaskItem from "../components/TaskItem";
-import { AddTaskModal } from "../components/modals";
+import {
+	AddTaskModal,
+	DeleteTaskModal,
+	ViewTaskModal,
+} from "../components/modals";
 import { AddIcon } from "../components/svgs";
 import { Task } from "../utils/types";
 import { taskContext } from "../contexts/taskContext";
 import usePaginate from "../hooks/usePaginate";
 
 const Home = () => {
-	const [openAddTaskModal, setOpenAddTaskModal] = useState(false);
 	const [editTask, setEditTask] = useState(false);
 	const [selectedTask, setSelectedTask] = useState<Task | undefined>(undefined);
+
+	const [whichModal, setWhichModal] = useState<
+		"add_edit" | "view" | "delete" | null
+	>(null);
 
 	const { taskList, setTaskList, addTask, deleteTask, updateTask } =
 		useContext(taskContext);
@@ -23,6 +30,46 @@ const Home = () => {
 		itemsPerPage,
 		taskList
 	);
+
+	const renderModal = (): JSX.Element => {
+		switch (whichModal) {
+			case "view":
+				return (
+					<ViewTaskModal
+						taskData={selectedTask}
+						openDeleteModal={() => setWhichModal("delete")}
+						openEditModal={() => setWhichModal("add_edit")}
+						onClose={() => setWhichModal(null)}
+					/>
+				);
+			case "add_edit":
+				return (
+					<AddTaskModal
+						edit={editTask}
+						taskData={selectedTask}
+						// onCancel={() => setWhichModal("view")}
+						onClose={() => setWhichModal(null)}
+					/>
+				);
+				break;
+			case "delete":
+				return (
+					<DeleteTaskModal
+						taskData={selectedTask}
+						onClose={() => setWhichModal(null)}
+						cancelFunc={() => setWhichModal("view")}
+						deleteFunc={() => {
+							deleteTask(selectedTask?.id || 0);
+							setWhichModal(null);
+						}}
+					/>
+				);
+
+			default:
+				return <></>;
+				break;
+		}
+	};
 
 	return (
 		<>
@@ -36,7 +83,8 @@ const Home = () => {
 						onClick={() => {
 							setEditTask(false);
 							setSelectedTask(undefined);
-							setOpenAddTaskModal(true);
+
+							setWhichModal("add_edit");
 						}}
 					>
 						<div className="flex flex-row items-center gap-2">
@@ -60,7 +108,8 @@ const Home = () => {
 										onClick={() => {
 											setEditTask(true);
 											setSelectedTask(taskItem);
-											setOpenAddTaskModal(true);
+
+											setWhichModal("view");
 										}}
 										onSelect={(val: boolean) => {
 											// if (val) {
@@ -83,16 +132,7 @@ const Home = () => {
 						</div>
 					</div>
 					<div className="relative">
-						<Modal
-							open={openAddTaskModal}
-							onClose={() => setOpenAddTaskModal(false)}
-						>
-							<AddTaskModal
-								onClose={() => setOpenAddTaskModal(false)}
-								edit={editTask}
-								taskData={selectedTask}
-							/>
-						</Modal>
+						<Modal>{renderModal()}</Modal>
 					</div>
 				</div>
 			</div>
