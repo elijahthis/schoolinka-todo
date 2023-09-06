@@ -132,7 +132,7 @@ const Home = () => {
 						</div>
 					</div>
 					<div className="relative">
-						<Modal>{renderModal()}</Modal>
+						<Modal open={whichModal !== null}>{renderModal()}</Modal>
 					</div>
 				</div>
 			</div>
