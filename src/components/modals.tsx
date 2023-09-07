@@ -5,10 +5,13 @@ import useTasks from "../hooks/useTasks";
 import { taskContext } from "../contexts/taskContext";
 import CompletedBadge from "./CompletedBadge";
 import {
+	addHours,
 	ellipsisTruncator,
 	formatDateWithSuffix,
 	formatTime,
 } from "../utils/helpers";
+import MUITimePicker from "./MUITimePicker";
+import MUIDatePicker from "./MUIDatePicker";
 
 // ----------------------------------------- AddTaskModal -----------------------------------------
 interface AddTaskModalProps {
@@ -25,13 +28,16 @@ export const AddTaskModal = ({
 		id: 0,
 		userId: 2,
 		title: "",
-		startTime: "",
-		endTime: "",
+		startTime: new Date().toISOString(),
+		endTime: addHours(new Date(), 1).toISOString(),
 		completed: false,
 	};
 
 	const [currentData, setCurrentData] = useState<Task>(
 		edit && taskData ? taskData : defaultTaskValues
+	);
+	const [today, setToday] = useState(
+		edit ? taskData?.startTime : new Date().toISOString()
 	);
 
 	const { taskList, setTaskList, addTask, deleteTask, updateTask } =
@@ -49,7 +55,7 @@ export const AddTaskModal = ({
 		if (edit) {
 			updateTask(currentData.id, currentData);
 		} else {
-			// addTask(currentData);
+			addTask({ ...currentData, id: taskList.length + 1 });
 		}
 
 		onClose();
@@ -74,28 +80,55 @@ export const AddTaskModal = ({
 				}
 			></textarea>
 			<div className="flex flex-row items-center gap-4 mb-4 ">
-				<button
-					className="flex flex-row items-center gap-2 border border-[#D0D5DD] bg-white rounded-lg py-[10px] px-4 text-sm font-semibold text-[#667085] mr-auto"
-					style={{ boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)" }}
-				>
-					<CalenderIcon />
-					Today
-				</button>
-				<button
-					className="flex flex-row items-center gap-2 border border-[#D0D5DD] bg-white rounded-lg py-[10px] px-4 text-sm font-semibold text-[#667085] "
-					style={{ boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)" }}
-				>
-					<ClockIcon />
-					00:00
-				</button>
-				<button
-					className="flex flex-row items-center gap-2 border border-[#D0D5DD] bg-white rounded-lg py-[10px] px-4 text-sm font-semibold text-[#667085] "
-					style={{ boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)" }}
-				>
-					<ClockIcon />
-					00:00
-				</button>
+				<MUIDatePicker
+					value={today}
+					onChange={(newValue) => {
+						// update startTime
+						let startTime = new Date(newValue?.$d);
+						startTime.setHours(new Date(currentData.startTime).getHours());
+						startTime.setMinutes(new Date(currentData.startTime).getMinutes());
+
+						// update endTime
+						if (currentData.endTime) {
+							let endTime = new Date(newValue?.$d);
+							endTime.setHours(new Date(currentData.endTime).getHours());
+							endTime.setMinutes(new Date(currentData.endTime).getMinutes());
+
+							setCurrentData({
+								...currentData,
+								startTime: startTime.toISOString(),
+								endTime: endTime.toISOString(),
+							});
+						} else {
+							setCurrentData({
+								...currentData,
+								startTime: startTime.toISOString(),
+							});
+						}
+
+						setToday(newValue?.$d?.toISOString());
+					}}
+				/>
+				<MUITimePicker
+					value={currentData?.startTime}
+					onChange={(newValue: any) => {
+						setCurrentData({
+							...currentData,
+							startTime: newValue?.$d?.toISOString(),
+						});
+					}}
+				/>
+				<MUITimePicker
+					value={currentData?.endTime}
+					onChange={(newValue: any) => {
+						setCurrentData({
+							...currentData,
+							endTime: newValue?.$d?.toISOString(),
+						});
+					}}
+				/>
 			</div>
+
 			<div className="flex flex-row items-center gap-2 ">
 				<DarkBellIcon />
 				<p className="mr-auto text-[#667085] ">10 Minutes before</p>
