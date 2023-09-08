@@ -78,10 +78,10 @@ const Home = () => {
 	return (
 		<>
 			<div>
-				<div className="flex flex-row items-start gap-4 justify-between pt-12 mb-8 ">
+				<div className="flex flex-row items-start gap-4 justify-between lg:pt-12 pt-8 mb-8 ">
 					<div className="flex flex-col items-start gap-1 ">
 						<h1>Good morning!</h1>
-						<p>You've got some tasks to do.</p>
+						<p className="text-[#475467]">You've got some tasks to do.</p>
 					</div>
 					<Button
 						onClick={() => {
@@ -99,7 +99,7 @@ const Home = () => {
 					</Button>
 				</div>
 				<div className="layoutBody">
-					<div className="pr-5 border-r border-[#EAECF0]">
+					<div className="lg:pr-5 lg:border-r lg:border-[#EAECF0]">
 						<div className="mb-8">
 							<ScrollableCalendar
 								filterDate={filterDate}
