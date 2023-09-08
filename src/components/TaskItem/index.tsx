@@ -17,10 +17,51 @@ const TaskItem = ({
 	swapItems,
 	taskList,
 }: TaskItemProps) => {
+	let touchStartY: number | null = null;
+	let touchMoveY: number | null = null;
+	let draggedItemId: number | null = null;
+
+	const onDrop = (e: React.DragEvent<HTMLDivElement>) => {
+		e.preventDefault();
+
+		const targetTaskId = taskData.id;
+		const sourceTaskId = e.dataTransfer.getData("text/plain");
+		if (Number(sourceTaskId) !== targetTaskId) {
+			const sourceIndex = taskList.findIndex(
+				(task: Task) => task.id === Number(sourceTaskId)
+			);
+			const targetIndex = taskList.findIndex(
+				(task: Task) => task.id === targetTaskId
+			);
+
+			swapItems(sourceIndex, targetIndex);
+		}
+	};
+	const onTouchEnd = (
+		e: React.TouchEvent<HTMLDivElement>,
+		targetTaskId: number
+	) => {
+		if (touchStartY !== null && touchMoveY !== null) {
+			const deltaY = touchMoveY - touchStartY;
+			if (deltaY > 50) {
+				// Perform the reordering here
+				const sourceIndex = taskList.findIndex(
+					(task: Task) => task.id === draggedItemId
+				);
+				const targetIndex = taskData.id;
+
+				swapItems(sourceIndex, targetIndex);
+			}
+		}
+		touchStartY = null;
+		touchMoveY = null;
+		draggedItemId = null;
+	};
 	return (
 		<div
 			className="TaskItem flex flex-row items-center gap-3 text-sm bg-[#F9FAFB] border-b border-[#EAECF0] py-4 px-6 text-sm text-[#475467] cursor-pointer "
 			onClick={onClick}
+			// drag and drop functionality
 			draggable={true}
 			onDragStart={(e) => {
 				e.dataTransfer.setData("text/plain", taskData.id.toString());
@@ -28,22 +69,18 @@ const TaskItem = ({
 			onDragOver={(e) => {
 				e.preventDefault();
 			}}
-			onDrop={(e) => {
-				e.preventDefault();
-
-				const targetTaskId = taskData.id;
-				const sourceTaskId = e.dataTransfer.getData("text/plain");
-				if (Number(sourceTaskId) !== targetTaskId) {
-					const sourceIndex = taskList.findIndex(
-						(task: Task) => task.id === Number(sourceTaskId)
-					);
-					const targetIndex = taskList.findIndex(
-						(task: Task) => task.id === targetTaskId
-					);
-
-					swapItems(sourceIndex, targetIndex);
+			onDrop={onDrop}
+			// drag and drop functionality --- mobile
+			onTouchStart={(e) => {
+				touchStartY = e.touches[0].clientY;
+				draggedItemId = taskData.id;
+			}}
+			onTouchMove={(e) => {
+				if (touchStartY !== null) {
+					touchMoveY = e.touches[0].clientY;
 				}
 			}}
+			onTouchEnd={(e) => onTouchEnd(e, taskData.id)}
 		>
 			<span onClick={(e) => e.stopPropagation()}>
 				<input
