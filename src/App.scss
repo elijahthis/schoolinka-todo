@@ -53,9 +53,51 @@
 	gap: 1.5rem;
 }
 
+.PaginationComponent {
+	display: flex;
+	flex: row;
+	align-items: center;
+	gap: 2px;
+
+	.previous {
+		margin-right: auto;
+		color: #475467;
+	}
+
+	.next {
+		margin-left: auto;
+		color: #475467;
+	}
+
+	&__page,
+	&__break {
+		min-width: 40px;
+		width: 40px;
+		height: 40px;
+
+		display: grid;
+		place-items: center;
+		color: #475467;
+		font-weight: 500;
+	}
+
+	&__active {
+		background: #f9fafb;
+		border-radius: 50%;
+		color: #1d2939;
+	}
+}
+
 @media (max-width: 1024px) {
 	.layoutBody {
 		width: 100%;
 		display: block;
+	}
+
+	.PaginationComponent {
+		&__page,
+		&__break {
+			display: none;
+		}
 	}
 }
