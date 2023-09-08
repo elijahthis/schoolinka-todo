@@ -7,6 +7,10 @@ export const addHours = (date: Date, hours: number): Date => {
 	return new Date(date.getTime() + hours * 60 * 60 * 1000);
 };
 
+export const addMonths = (date: Date, months: number): Date => {
+	return new Date(date.getFullYear(), date.getMonth() + months, date.getDate());
+};
+
 export const formatTime = (date: Date): string => {
 	return date.toLocaleTimeString("en-US", {
 		hour: "numeric",

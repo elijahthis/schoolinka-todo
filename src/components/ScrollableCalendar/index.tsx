@@ -1,7 +1,12 @@
 import { useState } from "react";
 import { dayList } from "../../utils/constants";
 import { Task } from "../../utils/types";
-import { getDaysInMonth, getLastDayOfMonth } from "../../utils/helpers";
+import {
+	addMonths,
+	getDaysInMonth,
+	getLastDayOfMonth,
+} from "../../utils/helpers";
+import { ChevronLeft, ChevronRight } from "../svgs";
 
 interface ScrollableCalendarProps {
 	filterDate: Date | null;
@@ -20,13 +25,29 @@ const ScrollableCalendar = ({
 
 	return (
 		<div>
-			<h2 className="mb-4">
-				{selectedDate.toLocaleDateString(undefined, {
-					year: "numeric",
-					month: "long",
-				})}
-			</h2>
-			<div className="flex flex-row items-stretch gap-4 w-full overflow-x-auto no-scrollbar ">
+			<div className="lg:mb-4 mb-3 flex flex-row items-center gap-4 justify-between">
+				<h2 className="text-xs lg:text-base ">
+					{selectedDate.toLocaleDateString(undefined, {
+						year: "numeric",
+						month: "long",
+					})}
+				</h2>
+				<div className="flex flex-row items-center gap-2">
+					<ChevronLeft
+						className="cursor-pointer"
+						onClick={() => {
+							setSelectedDate(addMonths(selectedDate, -1));
+						}}
+					/>
+					<ChevronRight
+						className="cursor-pointer"
+						onClick={() => {
+							setSelectedDate(addMonths(selectedDate, 1));
+						}}
+					/>
+				</div>
+			</div>
+			<div className="flex flex-row items-stretch lg:gap-4 gap-3 w-full overflow-x-auto no-scrollbar ">
 				{getDaysInMonth(selectedDate).map((item, ind) => (
 					<CalendarDay
 						weekday={dayList[item.getDay()].slice(0, 3)}
@@ -64,7 +85,7 @@ const CalendarDay = ({
 	deSelect,
 }: CalendarDayProps) => (
 	<div
-		className={`min-w-[62px] h-[68px] rounded-lg px-4 py-[10px] flex flex-col items-center gap-2 just0fy-between text-sm font-semibold cursor-pointer border ${
+		className={`lg:min-w-[62px] lg:h-[68px] min-w-[50px] h-[54px] lg:rounded-lg rounded-[6px] lg:px-4 lg:py-[10px] px-3 py-2 flex flex-col items-center lg:gap-2 gap-[6.3px] just0fy-between lg:text-sm text-xs font-semibold cursor-pointer border ${
 			isSelected
 				? "text-white border-pry-col bg-pry-col"
 				: "text-[#344054] border-[#D0D5DD] bg-white"
