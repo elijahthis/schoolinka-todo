@@ -54,6 +54,9 @@ const MUITimePicker = ({ value, onChange }: MUITimePickerProps) => {
 						},
 						"& .MuiInputAdornment-root": {},
 					}}
+					onKeyDown={(e) => {
+						e.preventDefault();
+					}}
 				/>
 			)}
 			components={{

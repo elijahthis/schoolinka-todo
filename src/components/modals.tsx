@@ -80,35 +80,40 @@ export const AddTaskModal = ({
 				}
 			></textarea>
 			<div className="flex flex-row items-center gap-4 mb-4 ">
-				<MUIDatePicker
-					value={today}
-					onChange={(newValue) => {
-						// update startTime
-						let startTime = new Date(newValue?.$d);
-						startTime.setHours(new Date(currentData.startTime).getHours());
-						startTime.setMinutes(new Date(currentData.startTime).getMinutes());
+				<div className="mr-2">
+					<MUIDatePicker
+						value={today}
+						onChange={(newValue) => {
+							// update startTime
+							let startTime = new Date(newValue?.$d);
+							startTime.setHours(new Date(currentData.startTime).getHours());
+							startTime.setMinutes(
+								new Date(currentData.startTime).getMinutes()
+							);
 
-						// update endTime
-						if (currentData.endTime) {
-							let endTime = new Date(newValue?.$d);
-							endTime.setHours(new Date(currentData.endTime).getHours());
-							endTime.setMinutes(new Date(currentData.endTime).getMinutes());
+							// update endTime
+							if (currentData.endTime) {
+								let endTime = new Date(newValue?.$d);
+								endTime.setHours(new Date(currentData.endTime).getHours());
+								endTime.setMinutes(new Date(currentData.endTime).getMinutes());
 
-							setCurrentData({
-								...currentData,
-								startTime: startTime.toISOString(),
-								endTime: endTime.toISOString(),
-							});
-						} else {
-							setCurrentData({
-								...currentData,
-								startTime: startTime.toISOString(),
-							});
-						}
+								setCurrentData({
+									...currentData,
+									startTime: startTime.toISOString(),
+									endTime: endTime.toISOString(),
+								});
+							} else {
+								setCurrentData({
+									...currentData,
+									startTime: startTime.toISOString(),
+								});
+							}
 
-						setToday(newValue?.$d?.toISOString());
-					}}
-				/>
+							setToday(newValue?.$d?.toISOString());
+						}}
+					/>
+				</div>
+
 				<MUITimePicker
 					value={currentData?.startTime}
 					onChange={(newValue: any) => {

@@ -1,4 +1,4 @@
-import { ellipsisTruncator, formatTime } from "../../utils/helpers";
+import { ellipsisTruncator, formatTime, isToday } from "../../utils/helpers";
 import { Task } from "../../utils/types";
 import { DeleteIcon } from "../svgs";
 
@@ -45,7 +45,11 @@ const TaskItem = ({ taskData, onClick, onSelect }: TaskItemProps) => {
 					taskData.endTime ? ` - ${formatTime(new Date(taskData.endTime))}` : ""
 				}`}</p>
 			</div>
-			<p className="ml-auto TaskItem__right">Today</p>
+			<p className="ml-auto TaskItem__right">
+				{isToday(new Date(taskData.startTime))
+					? "Today"
+					: new Date(taskData.startTime).toDateString().slice(4, 10)}
+			</p>
 		</div>
 	);
 };

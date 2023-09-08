@@ -32,3 +32,13 @@ export const formatDateWithSuffix = (date: Date): string => {
 
 	return `${day}${suffix} ${month}, ${year}`;
 };
+
+export const isToday = (date: Date): boolean => {
+	const today = new Date();
+
+	return (
+		date.getDate() === today.getDate() &&
+		date.getMonth() === today.getMonth() &&
+		date.getFullYear() === today.getFullYear()
+	);
+};
