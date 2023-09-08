@@ -53,6 +53,12 @@ const MUITimePicker = ({ value, onChange }: MUITimePickerProps) => {
 							paddingLeft: "0.1rem",
 						},
 						"& .MuiInputAdornment-root": {},
+
+						"@media (max-width: 1024px)": {
+							"& .MuiOutlinedInput-input": {
+								minWidth: "54px",
+							},
+						},
 					}}
 					onKeyDown={(e) => {
 						e.preventDefault();

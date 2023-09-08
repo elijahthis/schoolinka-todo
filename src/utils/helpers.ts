@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export const ellipsisTruncator = (str: string, maxLength: number): string => {
 	if (str.length > maxLength) return str.slice(0, maxLength) + "...";
 	else return str;
@@ -74,3 +76,16 @@ export const getDaysInMonth = (date: Date): Date[] => {
 
 	return daysInMonth;
 };
+
+export const toggleSideDrawer =
+	(open: any, setOpen: Dispatch<SetStateAction<any>>) => (event: any) => {
+		if (
+			event &&
+			event.type === "keydown" &&
+			(event.key === "Tab" || event.key === "Shift")
+		) {
+			return;
+		}
+
+		setOpen(open);
+	};

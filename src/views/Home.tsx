@@ -9,12 +9,14 @@ import {
 	DeleteTaskModal,
 	ViewTaskModal,
 } from "../components/modals";
-import { AddIcon } from "../components/svgs";
+import { AddIcon, MicrophoneIcon } from "../components/svgs";
 import { Task } from "../utils/types";
 import { taskContext } from "../contexts/taskContext";
 import usePaginate from "../hooks/usePaginate";
 import useFilter from "../hooks/useFilter";
 import EmptyState from "../components/EmptyState";
+import { SwipeableDrawer } from "@mui/material";
+import { toggleSideDrawer } from "../utils/helpers";
 
 const Home = () => {
 	const [editTask, setEditTask] = useState(false);
@@ -136,7 +138,7 @@ const Home = () => {
 								)}
 							</div>
 
-							<div className="mb-24 pt-5 border-t border-[#EAECF0] ">
+							<div className="lg:mb-24 mb-28 pt-5 border-t border-[#EAECF0] ">
 								<PaginationComponent
 									handlePageClick={handlePageClick}
 									pageCount={pageCount}
@@ -149,6 +151,35 @@ const Home = () => {
 					</div>
 				</div>
 			</div>
+			<div className="block lg:hidden fixed bottom-0 left-0 w-full py-5 px-4 pb-8 bg-white">
+				<div
+					className="cursor-pointer border border-[#D0D5DD] bg-[#F9FAFB] rounded-lg flex flex-row items-center gap-3 justify-between py-2 px-3 text-base text-[#475467] "
+					onClick={() => {
+						setEditTask(false);
+						setSelectedTask(undefined);
+
+						setWhichModal("add_edit");
+					}}
+				>
+					<p>Input task</p>
+					<MicrophoneIcon />
+				</div>
+			</div>
+			{document.body.clientWidth <= 1024 && (
+				<SwipeableDrawer
+					anchor="bottom"
+					open={whichModal !== null}
+					onClose={toggleSideDrawer(null, setWhichModal)}
+					onOpen={toggleSideDrawer("add_edit", setWhichModal)}
+					sx={{
+						"& .MuiPaper-root": {
+							borderRadius: "28px 28px 0 0",
+						},
+					}}
+				>
+					{renderModal()}
+				</SwipeableDrawer>
+			)}
 		</>
 	);
 };

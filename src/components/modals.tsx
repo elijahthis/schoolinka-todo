@@ -64,7 +64,7 @@ export const AddTaskModal = ({
 	};
 
 	return (
-		<div className="bg-white p-6 ">
+		<div className={`bg-white p-6 ${edit ? "mb-32" : ""} lg:mb-0 `}>
 			<div className="flex flex-row items-center gap-3 gap-2 mb-4 ">
 				<h4>{edit ? "Edit" : "Add"} Task</h4>
 				{edit && currentData?.completed && <CompletedBadge />}
@@ -81,8 +81,8 @@ export const AddTaskModal = ({
 					setCurrentData({ ...currentData, title: e.target.value })
 				}
 			></textarea>
-			<div className="flex flex-row items-center gap-4 mb-4 ">
-				<div className="mr-2">
+			<div className="flex flex-row items-center lg:gap-4 gap-3 mb-4 ">
+				<div className="lg:mr-2 mr-0">
 					<MUIDatePicker
 						value={today}
 						onChange={(newValue) => {
@@ -167,7 +167,7 @@ export const ViewTaskModal = ({
 	onClose,
 }: ViewTaskModalProps) => {
 	return (
-		<div className="px-6 py-5 w-full">
+		<div className="px-6 py-5 w-full mb-32 lg:mb-0">
 			<div className="mb-4 flex flex-row items-center justify-end">
 				{taskData?.completed && <CompletedBadge />}
 				<CloseIcon
@@ -222,7 +222,7 @@ export const DeleteTaskModal = ({
 		<div className="p-6">
 			<div className="mb-2 flex flex-row items-center justify-end">
 				{taskData?.completed && <CompletedBadge />}
-				<CloseIcon className="cursor-pointer ml-auto" />
+				<CloseIcon className="cursor-pointer ml-auto" onClick={onClose} />
 			</div>
 			<h4 className="mb-3">Delete Task</h4>
 			<p className="mb-6">
@@ -259,7 +259,7 @@ const ModalButton = ({
 					? "bg-transparent text-sec-dark border-[#D0D5DD] "
 					: variant === "delete"
 					? "bg-[#ef4444] text-white border-[#ef4444] text-sm"
-					: "bg-pry-col text-white border-pry-col text-sm"
+					: "bg-[#3f5bf6] text-white border-[#3f5bf6] text-sm"
 			}  `}
 			style={{
 				boxShadow: "0px 1px 2px 0px rgba(16, 24, 40, 0.05)",
