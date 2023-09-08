@@ -19,6 +19,7 @@ const TaskItem = ({ taskData, onClick, onSelect }: TaskItemProps) => {
 					type="checkbox"
 					name=""
 					id=""
+					aria-label="Complete Task"
 					checked={taskData.completed}
 					onChange={(e) => {
 						onSelect(e.target.checked);

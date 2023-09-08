@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { taskList } from "../../utils/constants";
 import TaskItem from "../TaskItem";
@@ -24,5 +24,39 @@ describe("TodoList component", () => {
 
 			expect(taskTitle).toBeInTheDocument();
 		});
+	});
+
+	it("allows completing tasks. Checks if checkbox gets checked on click", () => {
+		let currTask = { ...taskList[0] };
+
+		const { getByText, getByLabelText, rerender } = render(
+			<TaskItem
+				taskData={currTask}
+				onClick={jest.fn()}
+				onSelect={(val: boolean) => {
+					console.log(val);
+					currTask.completed = val;
+					console.log(currTask);
+				}}
+			/>
+		);
+
+		const taskCheckbox = getByLabelText("Complete Task");
+
+		fireEvent.click(taskCheckbox);
+
+		rerender(
+			<TaskItem
+				taskData={currTask}
+				onClick={jest.fn()}
+				onSelect={(val: boolean) => {
+					console.log(val);
+					currTask.completed = val;
+					console.log(currTask);
+				}}
+			/>
+		);
+
+		expect(taskCheckbox).toBeChecked();
 	});
 });
