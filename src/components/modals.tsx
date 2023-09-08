@@ -52,13 +52,15 @@ export const AddTaskModal = ({
 	}, [taskData]);
 
 	const submitTask = () => {
-		if (edit) {
-			updateTask(currentData.id, currentData);
-		} else {
-			addTask({ ...currentData, id: taskList.length + 1 });
-		}
+		if (currentData.title) {
+			if (edit) {
+				updateTask(currentData.id, currentData);
+			} else {
+				addTask({ ...currentData, id: taskList.length + 1 });
+			}
 
-		onClose();
+			onClose();
+		}
 	};
 
 	return (

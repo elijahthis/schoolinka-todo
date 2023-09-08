@@ -49,3 +49,20 @@ export const taskList: Task[] = [
 		completed: false,
 	},
 ];
+
+export const monthList: string[] = [
+	"January",
+	"February",
+	"March",
+	"April",
+	"May",
+	"June",
+	"July",
+	"August",
+	"September",
+	"October",
+	"November",
+	"December",
+];
+
+export const dayList = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

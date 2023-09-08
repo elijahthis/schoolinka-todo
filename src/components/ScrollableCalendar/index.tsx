@@ -1,20 +1,44 @@
-const ScrollableCalendar = () => {
-	const dayList = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+import { useState } from "react";
+import { dayList } from "../../utils/constants";
+import { Task } from "../../utils/types";
+import { getDaysInMonth, getLastDayOfMonth } from "../../utils/helpers";
+
+interface ScrollableCalendarProps {
+	filterDate: Date | null;
+	filteredTasks: Task[];
+	handleFilterDate: (date: Date) => void;
+}
+
+const ScrollableCalendar = ({
+	filterDate,
+	filteredTasks,
+	handleFilterDate,
+}: ScrollableCalendarProps) => {
+	const [selectedDate, setSelectedDate] = useState<Date>(
+		filterDate ?? new Date()
+	);
 
 	return (
 		<div>
-			<h2 className="mb-4">January 2023</h2>
+			<h2 className="mb-4">
+				{selectedDate.toLocaleDateString(undefined, {
+					year: "numeric",
+					month: "long",
+				})}
+			</h2>
 			<div className="flex flex-row items-stretch gap-4 w-full overflow-x-auto no-scrollbar ">
-				{Array(31)
-					.fill(0)
-					.map((item, ind) => (
-						<CalendarDay
-							weekday={dayList[ind % 7]}
-							day={ind + 1}
-							key={ind + 1}
-							isSelected={ind === 1}
-						/>
-					))}
+				{getDaysInMonth(selectedDate).map((item, ind) => (
+					<CalendarDay
+						weekday={dayList[item.getDay()].slice(0, 3)}
+						day={item.getDate()}
+						key={ind + 1}
+						isSelected={filterDate ? ind + 1 === filterDate.getDate() : false}
+						onSelect={() => {
+							setSelectedDate(item);
+							handleFilterDate(item);
+						}}
+					/>
+				))}
 			</div>
 		</div>
 	);
@@ -24,12 +48,14 @@ interface CalendarDayProps {
 	weekday: string;
 	day: number;
 	isSelected?: boolean;
+	onSelect: () => void;
 }
 
 const CalendarDay = ({
 	weekday,
 	day,
 	isSelected = false,
+	onSelect,
 }: CalendarDayProps) => (
 	<div
 		className={`min-w-[62px] h-[68px] rounded-lg px-4 py-[10px] flex flex-col items-center gap-2 just0fy-between text-sm font-semibold cursor-pointer border ${
@@ -37,6 +63,7 @@ const CalendarDay = ({
 				? "text-white border-pry-col bg-pry-col"
 				: "text-[#344054] border-[#D0D5DD] bg-white"
 		} `}
+		onClick={() => onSelect()}
 	>
 		<p>{weekday}</p>
 		<p>{day}</p>

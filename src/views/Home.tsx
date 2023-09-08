@@ -13,6 +13,8 @@ import { AddIcon } from "../components/svgs";
 import { Task } from "../utils/types";
 import { taskContext } from "../contexts/taskContext";
 import usePaginate from "../hooks/usePaginate";
+import useFilter from "../hooks/useFilter";
+import EmptyState from "../components/EmptyState";
 
 const Home = () => {
 	const [editTask, setEditTask] = useState(false);
@@ -25,10 +27,12 @@ const Home = () => {
 	const { taskList, setTaskList, addTask, deleteTask, updateTask } =
 		useContext(taskContext);
 
+	const { filterDate, filteredTasks, handleFilterDate } = useFilter(taskList);
+
 	const itemsPerPage = 7;
 	const { currentItems, pageCount, handlePageClick } = usePaginate(
 		itemsPerPage,
-		taskList
+		filteredTasks
 	);
 
 	const renderModal = (): JSX.Element => {
@@ -96,31 +100,39 @@ const Home = () => {
 				<div className="layoutBody">
 					<div className="pr-5 border-r border-[#EAECF0]">
 						<div className="mb-8">
-							<ScrollableCalendar />
+							<ScrollableCalendar
+								filterDate={filterDate}
+								filteredTasks={filteredTasks}
+								handleFilterDate={handleFilterDate}
+							/>
 						</div>
 						<div>
 							<h2 className="mb-4">My Tasks</h2>
 							<div className="flex flex-col items-stretch gap-4 mb-8 ">
-								{currentItems.map((taskItem, ind) => (
-									<TaskItem
-										taskData={taskItem}
-										key={ind}
-										onClick={() => {
-											setEditTask(true);
-											setSelectedTask(taskItem);
+								{currentItems.length === 0 ? (
+									<EmptyState message="Oops! You have no tasks on the selected date" />
+								) : (
+									currentItems.map((taskItem, ind) => (
+										<TaskItem
+											taskData={taskItem}
+											key={ind}
+											onClick={() => {
+												setEditTask(true);
+												setSelectedTask(taskItem);
 
-											setWhichModal("view");
-										}}
-										onSelect={(val: boolean) => {
-											// if (val) {
-											updateTask(taskItem.id, {
-												...taskItem,
-												completed: val,
-											});
-											// }
-										}}
-									/>
-								))}
+												setWhichModal("view");
+											}}
+											onSelect={(val: boolean) => {
+												// if (val) {
+												updateTask(taskItem.id, {
+													...taskItem,
+													completed: val,
+												});
+												// }
+											}}
+										/>
+									))
+								)}
 							</div>
 
 							<div className="mb-24 pt-5 border-t border-[#EAECF0] ">

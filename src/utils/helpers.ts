@@ -42,3 +42,31 @@ export const isToday = (date: Date): boolean => {
 		date.getFullYear() === today.getFullYear()
 	);
 };
+
+export const getLastDayOfMonth = (date: Date): number => {
+	const year = date.getFullYear();
+	const month = date.getMonth();
+
+	return new Date(year, month + 1, 0).getDate();
+};
+
+export const getDaysInMonth = (date: Date): Date[] => {
+	const year = date.getFullYear();
+	const month = date.getMonth();
+
+	// Create a new Date object for the start of the month
+	const firstDayOfMonth = new Date(year, month, 1);
+
+	// Determine the last day of the month
+	const lastDayOfMonth = new Date(year, month + 1, 0);
+
+	const daysInMonth = [];
+	const currentDay = new Date(firstDayOfMonth);
+
+	while (currentDay <= lastDayOfMonth) {
+		daysInMonth.push(new Date(currentDay));
+		currentDay.setDate(currentDay.getDate() + 1);
+	}
+
+	return daysInMonth;
+};
