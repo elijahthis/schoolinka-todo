@@ -1,14 +1,6 @@
 .App {
 }
 
-.layoutBody {
-	width: 100%;
-	display: grid;
-	/* grid-template-columns: 59.86vw 1fr; */
-	grid-template-columns: minmax(0, 1fr) 395px;
-	gap: 1.5rem;
-}
-
 .Toastify {
 	&__toast {
 		&-container {
@@ -50,5 +42,20 @@
 				fill: #ffffff !important;
 			}
 		}
+	}
+}
+
+.layoutBody {
+	width: 100%;
+	display: grid;
+	/* grid-template-columns: 59.86vw 1fr; */
+	grid-template-columns: minmax(0, 1fr) 395px;
+	gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+	.layoutBody {
+		width: 100%;
+		display: block;
 	}
 }

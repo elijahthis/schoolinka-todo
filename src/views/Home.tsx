@@ -90,6 +90,7 @@ const Home = () => {
 
 							setWhichModal("add_edit");
 						}}
+						className="lg:inline-block hidden"
 					>
 						<div className="flex flex-row items-center gap-2">
 							<AddIcon />
