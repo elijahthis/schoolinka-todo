@@ -6,13 +6,44 @@ interface TaskItemProps {
 	taskData: Task;
 	onClick: () => void;
 	onSelect: (val: boolean) => void;
+	swapItems: (sourceIndex: number, targetIndex: number) => void;
+	taskList: Task[];
 }
 
-const TaskItem = ({ taskData, onClick, onSelect }: TaskItemProps) => {
+const TaskItem = ({
+	taskData,
+	onClick,
+	onSelect,
+	swapItems,
+	taskList,
+}: TaskItemProps) => {
 	return (
 		<div
 			className="TaskItem flex flex-row items-center gap-3 text-sm bg-[#F9FAFB] border-b border-[#EAECF0] py-4 px-6 text-sm text-[#475467] cursor-pointer "
 			onClick={onClick}
+			draggable={true}
+			onDragStart={(e) => {
+				e.dataTransfer.setData("text/plain", taskData.id.toString());
+			}}
+			onDragOver={(e) => {
+				e.preventDefault();
+			}}
+			onDrop={(e) => {
+				e.preventDefault();
+
+				const targetTaskId = taskData.id;
+				const sourceTaskId = e.dataTransfer.getData("text/plain");
+				if (Number(sourceTaskId) !== targetTaskId) {
+					const sourceIndex = taskList.findIndex(
+						(task: Task) => task.id === Number(sourceTaskId)
+					);
+					const targetIndex = taskList.findIndex(
+						(task: Task) => task.id === targetTaskId
+					);
+
+					swapItems(sourceIndex, targetIndex);
+				}
+			}}
 		>
 			<span onClick={(e) => e.stopPropagation()}>
 				<input

@@ -14,6 +14,8 @@ describe("TodoList component", () => {
 						key={ind}
 						onClick={jest.fn()}
 						onSelect={jest.fn()}
+						swapItems={jest.fn()}
+						taskList={taskList}
 					/>
 				))}
 			</>
@@ -38,6 +40,8 @@ describe("TodoList component", () => {
 					currTask.completed = val;
 					console.log(currTask);
 				}}
+				swapItems={jest.fn()}
+				taskList={taskList}
 			/>
 		);
 
@@ -54,6 +58,8 @@ describe("TodoList component", () => {
 					currTask.completed = val;
 					console.log(currTask);
 				}}
+				swapItems={jest.fn()}
+				taskList={taskList}
 			/>
 		);
 

@@ -133,6 +133,19 @@ const Home = () => {
 												});
 												// }
 											}}
+											taskList={taskList}
+											swapItems={(sourceIndex: number, targetIndex: number) => {
+												const updatedTasks = [...taskList];
+
+												if (sourceIndex !== -1 && targetIndex !== -1) {
+													const [movedTask] = updatedTasks.splice(
+														sourceIndex,
+														1
+													);
+													updatedTasks.splice(targetIndex, 0, movedTask);
+													setTaskList(updatedTasks);
+												}
+											}}
 										/>
 									))
 								)}
