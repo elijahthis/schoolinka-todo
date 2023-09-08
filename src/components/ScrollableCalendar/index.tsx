@@ -6,7 +6,7 @@ import { getDaysInMonth, getLastDayOfMonth } from "../../utils/helpers";
 interface ScrollableCalendarProps {
 	filterDate: Date | null;
 	filteredTasks: Task[];
-	handleFilterDate: (date: Date) => void;
+	handleFilterDate: (date: Date | null) => void;
 }
 
 const ScrollableCalendar = ({
@@ -37,6 +37,10 @@ const ScrollableCalendar = ({
 							setSelectedDate(item);
 							handleFilterDate(item);
 						}}
+						deSelect={() => {
+							setSelectedDate(new Date());
+							handleFilterDate(null);
+						}}
 					/>
 				))}
 			</div>
@@ -49,6 +53,7 @@ interface CalendarDayProps {
 	day: number;
 	isSelected?: boolean;
 	onSelect: () => void;
+	deSelect: () => void;
 }
 
 const CalendarDay = ({
@@ -56,6 +61,7 @@ const CalendarDay = ({
 	day,
 	isSelected = false,
 	onSelect,
+	deSelect,
 }: CalendarDayProps) => (
 	<div
 		className={`min-w-[62px] h-[68px] rounded-lg px-4 py-[10px] flex flex-col items-center gap-2 just0fy-between text-sm font-semibold cursor-pointer border ${
@@ -63,7 +69,10 @@ const CalendarDay = ({
 				? "text-white border-pry-col bg-pry-col"
 				: "text-[#344054] border-[#D0D5DD] bg-white"
 		} `}
-		onClick={() => onSelect()}
+		onClick={() => {
+			if (isSelected) deSelect();
+			else onSelect();
+		}}
 	>
 		<p>{weekday}</p>
 		<p>{day}</p>
