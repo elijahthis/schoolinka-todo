@@ -144,7 +144,7 @@ const Home = () => {
 							</div>
 						</div>
 					</div>
-					<div className="relative">
+					<div className="relative hidden lg:block ">
 						<Modal open={whichModal !== null}>{renderModal()}</Modal>
 					</div>
 				</div>
